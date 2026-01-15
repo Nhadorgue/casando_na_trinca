@@ -1,0 +1,31 @@
+/* Centraliza logo */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Menu buttons */
+div[data-testid="column"] button {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    padding: 0.75rem 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #2c2c2c;
+}
+
+/* Hover */
+div[data-testid="column"] button:hover {
+    border-bottom: 3px solid #91a8d0;
+    background: transparent;
+}
+
+/* Botão ativo */
+.menu-active {
+    /* border-bottom: 3px solid #91a8d0 !important; */
+    font-weight: 600;
+}
