@@ -1,17 +1,19 @@
 import streamlit as st
 from utils.style import load_css
+
+
 st.set_page_config(
     page_title="Casando na Trinca",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-load_css()
-
 from components.menu import render_menu
 from components.recados_barra import render_recados_barra
 from components.footer import render_footer
 from pages import casamento, galeria, sobre_nos, recados, presentes
+
+load_css()
 
 
 # MENU

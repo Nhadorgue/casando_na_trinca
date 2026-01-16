@@ -1,38 +1,57 @@
 import streamlit as st
+import base64
+from pathlib import Path
 
 def render_menu():
 
     if "pagina" not in st.session_state:
         st.session_state.pagina = "Casamento"
 
-    # LOGO
+    # CONTAINER DO MENU
+    st.markdown("<div class='menu-wrapper'>", unsafe_allow_html=True)
+
+    # LOGO CENTRALIZADO
     st.markdown(
-        """
+        f"""
         <div class="logo-container">
-            <img src="data:image/png;base64,{}" width="280"/>
+            <img src="data:image/png;base64,{get_logo_base64()}" width="280"/>
         </div>
-        """.format(get_logo_base64()),
+        """,
         unsafe_allow_html=True
     )
 
     # MENU
-    cols = st.columns(5)
     paginas = ["Casamento", "Galeria", "Sobre Nós", "Recados", "Presentes"]
+    cols = st.columns(len(paginas))
 
     for col, nome in zip(cols, paginas):
         with col:
-            classe = "menu-active" if st.session_state.pagina == nome else ""
-            if st.button(nome, key=nome):
-                st.session_state.pagina = nome
-            st.markdown(
-                f"<div class='{classe}'></div>",
-                unsafe_allow_html=True
+            is_active = st.session_state.pagina == nome
+            
+            st.button(
+                nome,
+                key=f"menu-{nome}",
+                use_container_width=True,
             )
+
+            if is_active:
+                st.markdown(
+                    f"""
+                    <script>
+                    const btn = window.parent.document.querySelector(
+                        'button[kind="secondary"]:has-text("{nome}")'
+                    );
+                    if (btn) btn.setAttribute("data-active", "true");
+                    </script>
+                    """,
+                    unsafe_allow_html=True
+                )
+
+    st.markdown("</div>", unsafe_allow_html=True)
 
     return st.session_state.pagina
 
 
 def get_logo_base64():
-    import base64
-    with open("assets/images/logo.png", "rb") as img:
-        return base64.b64encode(img.read()).decode()
+    path = Path("assets/images/logo.png")
+    return base64.b64encode(path.read_bytes()).decode()
