@@ -3,7 +3,7 @@ from utils.style import load_css
 
 
 st.set_page_config(
-    page_title="Casando na Trinca",
+    page_title="Casando na Trinca 💍",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -11,7 +11,7 @@ st.set_page_config(
 from components.menu import render_menu
 from components.recados_barra import render_recados_barra
 from components.footer import render_footer
-from pages import Casamento, Galeria, Presentes, Recados, Sobre_nos
+from pages import casamento, galeria, presentes, recados, sobre_nos
 
 load_css()
 
@@ -24,19 +24,20 @@ render_recados_barra()
 
 # CONTEÚDO PRINCIPAL
 if pagina == "Casamento":
-    Casamento.render()
+    casamento.render()
 
 elif pagina == "Galeria":
-    Galeria.render()
+    galeria.render()
 
 elif pagina == "Sobre Nós":
-    Sobre_nos.render()
+    sobre_nos.render()
 
 elif pagina == "Recados":
-    Recados.render()
+    recados.render()
 
 elif pagina == "Presentes":
-     Presentes.render()
+    presentes.render()
 
 # FOOTER
 render_footer()
+
