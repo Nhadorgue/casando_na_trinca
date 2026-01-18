@@ -7,8 +7,8 @@ def render_footer():
         """
         <div style="text-align:center; color:gray; font-size:14px;">
             🤍 Casando na Trinca · Dezembro de 2026<br>
-            “O que Deus uniu, o homem não separe.” (Mt 19,6)
-            Grazielle & Gabriel
+            "O amor humano, o amor aqui em baixo na terra, quando é verdadeiro, ajuda-nos a saborear o amor divino.” (É Cristo que passa, Ponto 166)
+            \nGrazielle & Gabriel
         </div>
         """,
         unsafe_allow_html=True

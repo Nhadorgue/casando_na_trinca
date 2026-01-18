@@ -11,7 +11,7 @@ st.set_page_config(
 from components.menu import render_menu
 from components.recados_barra import render_recados_barra
 from components.footer import render_footer
-from pages import casamento, galeria, sobre_nos, recados, presentes
+from pages import Casamento, Galeria, Presentes, Recados, Sobre_nos
 
 load_css()
 
@@ -24,19 +24,19 @@ render_recados_barra()
 
 # CONTEÚDO PRINCIPAL
 if pagina == "Casamento":
-    casamento.render()
+    Casamento.render()
 
 elif pagina == "Galeria":
-    galeria.render()
+    Galeria.render()
 
 elif pagina == "Sobre Nós":
-    sobre_nos.render()
+    Sobre_nos.render()
 
 elif pagina == "Recados":
-    recados.render()
+    Recados.render()
 
 elif pagina == "Presentes":
-    presentes.render()
+     Presentes.render()
 
 # FOOTER
 render_footer()

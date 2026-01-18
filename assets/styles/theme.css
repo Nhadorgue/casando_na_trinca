@@ -7,8 +7,9 @@
 /* Logo centralizado */
 .logo-container {
     display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
+    justify-content: center; /* Centraliza na horizontal */
+    width: 100%            /* Opcional: faz a div ocupar toda a largura */
+  
 }
 
 /* Botões do menu */

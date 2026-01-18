@@ -26,8 +26,8 @@ def render_menu():
 
     for col, nome in zip(cols, paginas):
         with col:
-            is_active = st.session_state.pagina == nome
-            
+            is_active = st.session_state.pagina
+
             st.button(
                 nome,
                 key=f"menu-{nome}",
