@@ -1,10 +1,11 @@
 import streamlit as st
 import streamlit.components.v1 as components
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from streamlit_autorefresh import st_autorefresh
 from utils.background import apply_virgem_maria_background
 
 
+FUSO_BRASIL = timezone(timedelta(hours=-3))
 
 # =========================
 # CONFIGURAÇÕES DO CASAMENTO
@@ -21,15 +22,22 @@ ENDERECO = (
 # FUNÇÕES AUXILIARES
 # =========================
 def calcular_tempo_restante(data_evento):
-    agora = datetime.now()
+    agora = datetime.now(FUSO_BRASIL)
+
+    if data_evento.tzinfo is None:
+        data_evento = data_evento.replace(tzinfo=FUSO_BRASIL)
+
     diferenca = data_evento - agora
 
     if diferenca.total_seconds() <= 0:
         return None
 
-    dias = diferenca.days
-    horas, resto = divmod(diferenca.seconds, 3600)
-    minutos, segundos = divmod(resto, 60)
+    total_segundos = int(diferenca.total_seconds())
+
+    dias = total_segundos // 86400
+    horas = (total_segundos % 86400) // 3600
+    minutos = (total_segundos % 3600) // 60
+    segundos = total_segundos % 60
 
     return dias, horas, minutos, segundos
 
@@ -146,4 +154,3 @@ def render():
     """
 
     components.html(mapa_html, height=470)
-
