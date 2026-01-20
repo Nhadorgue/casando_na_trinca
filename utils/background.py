@@ -1,15 +1,28 @@
 import base64
 from pathlib import Path
 
+
 def get_base64_image(path: str) -> str:
     image_path = Path(path)
     return base64.b64encode(image_path.read_bytes()).decode()
+
 
 def apply_virgem_maria_background():
     img_base64 = get_base64_image("assets/images/virgem_maria.png")
 
     css = f"""
     <style>
+
+    /* ===============================
+       VARIÁVEIS DE COR
+    =============================== */
+    :root {{
+        --serenity-blue: #A7C7E7;
+    }}
+
+    /* ===============================
+       BACKGROUND PRINCIPAL
+    =============================== */
     .stApp {{
         background-image: url("data:image/png;base64,{img_base64}");
         background-repeat: no-repeat;
@@ -24,19 +37,46 @@ def apply_virgem_maria_background():
     .stApp::before {{
         content: "";
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.80);
+        inset: 0;
+        background-color: rgba(255, 255, 255, 0.85);
         z-index: -1;
     }}
+    
+    /* ===============================
+       GALERIA DE IMAGENS
+    =============================== */
+    .galeria-img img {{
+        width: 100%;
+        border-radius: 18px;
+        border: 2px solid var(--serenity-blue);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.10);
+        filter: blur(0.6px) saturate(1.05);
+        transition: all 0.35s ease;
+    }}
 
-    /* Ajuste para telas menores */
+    .galeria-img img:hover {{
+        filter: blur(0px) saturate(1.1);
+        transform: scale(1.03);
+    }}
+
+    .galeria-img p {{
+        margin-top: 8px;
+        text-align: center;
+        font-size: 0.9em;
+        color: #666;
+    }}
+
+    /* ===============================
+       RESPONSIVIDADE
+    =============================== */
     @media (max-width: 768px) {{
         .stApp {{
             background-size: 45%;
             background-position: bottom center;
+        }}
+
+        .galeria-img img {{
+            border-radius: 14px;
         }}
     }}
 

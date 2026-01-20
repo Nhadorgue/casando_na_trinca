@@ -2,8 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 from datetime import datetime, timezone, timedelta
 from streamlit_autorefresh import st_autorefresh
-from utils.background import apply_virgem_maria_background
-
+from utils.background import apply_virgem_maria_background, get_base64_image
 
 FUSO_BRASIL = timezone(timedelta(hours=-3))
 
@@ -112,22 +111,47 @@ def render():
 
     col_img1, col_img2, col_img3 = st.columns(3)
 
+    igreja_externa = get_base64_image("assets/images/Igreja_Externa.png") 
+    igreja_interior = get_base64_image("assets/images/Igreja_Interior.jpg") 
+    igreja_altar = get_base64_image("assets/images/Igreja_Altar.jpg")
+
     with col_img1:
-        st.image(
-            "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620",
-            caption="Paróquia - Visão externa"
+        st.markdown(
+            f"""
+            <div class="galeria-img">
+                <img src="data:image/jpeg;base64,{igreja_externa}">
+                <p style="text-align:center; font-size: 0.9em; color: #666;">
+                    Paróquia - Visão externa
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True
         )
 
     with col_img2:
-        st.image(
-            "https://images.unsplash.com/photo-1505842465776-3bf7c6d32a8a",
-            caption="Interior da igreja"
+        st.markdown(
+            f"""
+            <div class="galeria-img">
+                <img src="data:image/jpeg;base64,{igreja_interior}">
+                <p style="text-align:center; font-size: 0.9em; color: #666;">
+                    Paróquia - Visão interna
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True
         )
 
     with col_img3:
-        st.image(
-            "https://images.unsplash.com/photo-1508599589929-30c2a37aa3f1",
-            caption="Altar"
+        st.markdown(
+            f"""
+            <div class="galeria-img">
+                <img src="data:image/jpeg;base64,{igreja_altar}">
+                <p style="text-align:center; font-size: 0.9em; color: #666;">
+                    Altar da igreja
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True
         )
 
     st.divider()

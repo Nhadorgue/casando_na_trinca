@@ -16,8 +16,10 @@ def bloco_texto_imagem(texto, imagem, invertido=False):
     with col_txt:
         st.markdown(
             f"""
-            <div class="texto-historia">
-                {texto}
+            <div class="texto-wrapper">
+                <div class="texto-historia">
+                    {texto}
+
             """,
             unsafe_allow_html=True
         )
@@ -40,27 +42,84 @@ def render():
     st.markdown(
         """
         <style>
-        .texto-historia {
-            text-align: justify;
-            font-size: 18px;
-            line-height: 1.8;
-            color: #2f2f2f;
-            padding: 150px 100px;
+
+        /* ===============================
+        VARIÁVEIS DE COR
+        =============================== */
+        
+        :root {
+            --serenity-blue: #A7C7E7;
         }
 
+        .texto-historia {
+            display: flex;
+            align-items: center;      /* centraliza verticalmente */
+            justify-content: center;  /* centraliza horizontalmente */
+            
+            text-align: justify;
+            font-size: 50px;
+            line-height: 1.9;
+            color: #2f2f2f;
+
+            max-width: 600px;         /* estreita o texto */
+            margin: 0 auto;           /* centraliza horizontalmente */
+            padding: 20px 10px 28px 10px;
+
+            border-bottom: 1.5px solid #91a8d0;
+        }
+
+        .texto-wrapper {
+            min-height: 360px;
+            display: flex;
+            align-items: center;
+        }
+
+
         .img-container {
-            width: 320px;
-            height: 320px;
+            width: 360px;
+            height: 360px;
             margin: 0 auto; /* centraliza na coluna */
             overflow: hidden;
-            border-radius: 12px; /* pode tirar se quiser quadrado perfeito */
         }
 
         .img-container img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: 100%;        
+            border-radius: 18px;
+            border: 2px solid var(--serenity-blue);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.10);
+            filter: blur(0.6px) saturate(1.05);
+            transition: all 0.35s ease;
         }
+
+        .galeria-img img:hover {
+            filter: blur(0px) saturate(1.1);
+            transform: scale(1.03);
+        }
+
+        @media (max-width: 768px) {
+
+            .img-container {
+                width: 260px;
+                height: 260px;
+                margin: 20px auto;
+            }
+
+            .texto-wrapper {
+                min-height: auto;
+                padding: 0 10px;
+            }
+
+            .texto-historia {
+                font-size: 17px;
+                line-height: 1.7;
+
+                max-width: 100%;
+                padding: 16px 8px 22px 8px;
+            }
+        }
+
+
         </style>
         """,
         unsafe_allow_html=True
@@ -93,7 +152,7 @@ def render():
         É rezar juntos, sonhar juntos e confiar que, mesmo nas dificuldades,
         Deus permanece no centro da nossa história.
         """,
-        imagem="assets/images/Foto1.jpg",
+        imagem="assets/images/Foto.jpg",
         invertido=True
     )
 
@@ -107,6 +166,6 @@ def render():
         de gratidão. Sabemos que esta história não é apenas nossa,
         mas foi cuidadosamente escrita pelas mãos de Deus.
         """,
-        imagem="assets/images/Foto2.jpg",
+        imagem="assets/images/Foto.jpg",
         invertido=False
     )
