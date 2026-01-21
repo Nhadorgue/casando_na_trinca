@@ -111,9 +111,9 @@ def render():
 
     col_img1, col_img2, col_img3 = st.columns(3)
 
-    igreja_externa = get_base64_image("assets/images/igreja_Externa.png") 
-    igreja_interior = get_base64_image("assets/images/igreja_Interior.png") 
-    igreja_altar = get_base64_image("assets/images/igreja_Altar.png")
+    igreja_externa = get_base64_image("assets/images/igreja_externa.png") 
+    igreja_interior = get_base64_image("assets/images/igreja_interior.png") 
+    igreja_altar = get_base64_image("assets/images/igreja_altar.png")
 
     with col_img1:
         st.markdown(
