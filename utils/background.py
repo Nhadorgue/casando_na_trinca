@@ -26,6 +26,7 @@ def apply_virgem_maria_background():
         background-position: bottom right;
         background-size: 15%;
         background-attachment: fixed;
+        z-index: -2;
     }}
 
     .stApp::before {{

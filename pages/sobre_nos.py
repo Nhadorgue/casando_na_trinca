@@ -138,7 +138,7 @@ def render():
         e a mão de Deus conduzindo cada passo, fomos descobrindo que o amor
         verdadeiro nasce da amizade, do cuidado e da entrega diária.
         """,
-        imagem="assets/images/foto.png",
+        imagem="assets/images/foto.jpg",
         invertido=False
     )
 
@@ -152,7 +152,7 @@ def render():
         É rezar juntos, sonhar juntos e confiar que, mesmo nas dificuldades,
         Deus permanece no centro da nossa história.
         """,
-        imagem="assets/images/foto.png",
+        imagem="assets/images/foto.jpg",
         invertido=True
     )
 
@@ -166,6 +166,6 @@ def render():
         de gratidão. Sabemos que esta história não é apenas nossa,
         mas foi cuidadosamente escrita pelas mãos de Deus.
         """,
-        imagem="assets/images/foto.png",
+        imagem="assets/images/foto.jpg",
         invertido=False
     )
