@@ -1,3 +1,4 @@
+import random
 import streamlit as st
 from utils.background import apply_virgem_maria_background
 from utils.gallery import get_gallery_images
@@ -35,6 +36,14 @@ def render():
         st.info("📷 Em breve novas fotos...")
         return
 
+    # 🎲 SHUFFLE UMA VEZ POR SESSÃO
+    if "shuffled_images" not in st.session_state:
+        shuffled = images.copy()
+        random.shuffle(shuffled)
+        st.session_state.shuffled_images = shuffled
+
+    images = st.session_state.shuffled_images
+
     total_pages = (len(images) - 1) // IMAGES_PER_PAGE + 1
 
     if "gallery_page" not in st.session_state:
@@ -64,7 +73,7 @@ def render():
     end = start + IMAGES_PER_PAGE
     page_images = images[start:end]
 
-    # ---------- GRID 5x5 ----------
+    # ---------- GRID ----------
     for row in range(0, len(page_images), COLS):
         cols = st.columns(COLS)
         for col, img_url in zip(cols, page_images[row:row + COLS]):
