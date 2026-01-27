@@ -1,39 +1,23 @@
-import streamlit as st
+import json
 import requests
-from typing import List
 
-OWNER = "Nhadorgue"
-REPO = "casando_na_trinca_imagens"
-BRANCH = "main"
-FOLDER_PATH = "images_output/casal"
-
-RAW_BASE_URL = (
-    f"https://raw.githubusercontent.com/{OWNER}/{REPO}/{BRANCH}/{FOLDER_PATH}"
+RAW_BASE = (
+    "https://raw.githubusercontent.com/"
+    "Nhadorgue/casando_na_trinca_imagens/main/images_output/casal/"
 )
 
-GITHUB_API_URL = (
-    f"https://api.github.com/repos/{OWNER}/{REPO}/contents/{FOLDER_PATH}"
-)
+JSON_URL = RAW_BASE + "images.json"
 
-@st.cache_data(ttl=3600)
-def get_gallery_images() -> List[str]:
-    """
-    Busca automaticamente todas as imagens JPG da galeria
-    diretamente do GitHub.
-    """
-    response = requests.get(GITHUB_API_URL, timeout=10)
-    response.raise_for_status()
 
-    files = response.json()
+def get_gallery_images():
+    try:
+        response = requests.get(JSON_URL, timeout=10)
+        response.raise_for_status()
 
-    images = [
-        f"{RAW_BASE_URL}/{file['name']}"
-        for file in files
-        if file["type"] == "file"
-        and file["name"].lower().endswith(".jpg")
-    ]
+        filenames = json.loads(response.text)
 
-    # Ordena por nome (000.jpg, 001.jpg...)
-    images.sort()
+        return [RAW_BASE + name for name in filenames]
 
-    return images
+    except Exception as e:
+        print("Erro ao carregar galeria:", e)
+        return []
