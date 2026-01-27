@@ -7,7 +7,7 @@ from utils.background import apply_virgem_maria_background
 # =========================
 # CONFIGURAÇÕES DO CASAMENTO
 # =========================
-DATA_CASAMENTO = datetime(2026, 12, 5, 15, 30)  # ajuste o horário depois se quiser
+DATA_CASAMENTO = datetime(2026, 12, 5, 14, 00)  # ajuste o horário depois se quiser
 
 LOCAL = "Paróquia Nossa Senhora das Graças"
 
@@ -100,39 +100,6 @@ def render():
     
     st.divider()
 
-    # ---------- GALERIA DA IGREJA (PLACEHOLDER) ----------
-    st.subheader("📸 O lugar onde tudo acontecerá")
-
-    st.write(
-        "Em breve, algumas imagens especiais da igreja onde celebraremos "
-        "nosso matrimônio 💙"
-    )
-
-    col_img1, col_img2, col_img3 = st.columns(3)
-
-    with col_img1:
-        st.image(
-            "assets/images/externa.jpg",
-            caption="Paróquia - Visão externa",
-            width='stretch'
-        )
-
-    with col_img2:
-        st.image(
-            "assets/images/interior.jpg",
-            caption="Paróquia - Interior da igreja",
-            width='stretch'
-        )
-
-    with col_img3:
-        st.image(
-            "assets/images/altar.jpg",
-            caption="Altar",
-            width='stretch'
-        )
-
-        st.divider()
-
 
     # ---------- MAPA ----------
     st.subheader("📍 Como chegar")
@@ -146,7 +113,7 @@ def render():
     <iframe 
         src="https://www.google.com/maps?q=Paróquia+Nossa+Senhora+das+Graças+Carapicuíba+SP&output=embed"
         width="100%" 
-        height="450" 
+        height="600" 
         style="border:0; border-radius: 12px;"
         allowfullscreen=""
         loading="lazy"
@@ -154,4 +121,4 @@ def render():
     </iframe>
     """
 
-    components.html(mapa_html, height=470)
+    components.html(mapa_html, height=620)

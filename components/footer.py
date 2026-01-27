@@ -7,7 +7,7 @@ def render_footer():
         """
         <div style="text-align:center; color:gray; font-size:14px;">
             🤍 Casando na Trinca · Dezembro de 2026<br>
-            "O amor humano, o amor aqui em baixo na terra, quando é verdadeiro, ajuda-nos a saborear o amor divino.” (É Cristo que passa, Ponto 166)
+            "O amor humano, o amor aqui em baixo na terra, quando é verdadeiro, ajuda-nos a saborear o amor divino.” \n(É Cristo que passa, Ponto 166)
             \nGrazielle & Gabriel
         </div>
         """,
