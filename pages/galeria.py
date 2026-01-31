@@ -1,4 +1,3 @@
-import random
 import streamlit as st
 from utils.background import apply_virgem_maria_background
 from utils.gallery import get_gallery_images
@@ -24,7 +23,7 @@ def render():
         st.image("assets/images/altar.jpg", caption="Altar")
 
     st.divider()
-    
+
     # ---------- GALERIA DO CASAL ----------
     st.subheader("👀 Algumas fotinhas nossas e participações especiais...")
 
@@ -34,16 +33,8 @@ def render():
         st.info("📷 Em breve novas fotos...")
         return
 
-    # 🔐 inicialização segura
-    if "shuffled_gallery" not in st.session_state:
-        shuffled = images.copy()
-        random.shuffle(shuffled)
-        st.session_state.shuffled_gallery = shuffled
-
-    # 🔒 segurança: no máximo 12
-    gallery_images = st.session_state.shuffled_gallery[:12]
-
-    COLS = 4
+    # 🔒 Limite fixo: no máximo 12 imagens
+    gallery_images = images[:12]
 
     # ---------- GRID FIXO 4x3 ----------
     for row in range(0, len(gallery_images), COLS):
