@@ -13,14 +13,22 @@ def render():
     # ---------- IGREJA ----------
     st.subheader("📸 O lugar onde tudo acontecerá")
 
-    col1, col2, col3 = st.columns(3)
+    # col1, col2, col3 = st.columns(3)
 
-    with col1:
-        st.image("assets/images/externa.jpg", caption="Paróquia - Visão externa")
-    with col2:
-        st.image("assets/images/interior.jpg", caption="Interior da igreja")
-    with col3:
-        st.image("assets/images/altar.jpg", caption="Altar")
+    # with col1:
+    #     st.image("assets/images/externa.jpg", caption="Paróquia - Visão externa")
+    # with col2:
+    #     st.image("assets/images/interior.jpg", caption="Interior da igreja")
+    # with col3:
+    #     st.image("assets/images/altar.jpg", caption="Altar")
+
+    # col1 = st.columns([1])
+
+    # with col1:
+    st.image(
+        "assets/images/igreja_vertical.jpg",
+        width='stretch'
+    )  
 
     st.divider()
 
@@ -48,6 +56,6 @@ def render():
 
     with col2:
         st.image(
-            "assets/images/galeria.jpg",
-            width='stretch'
+            "assets/images/galeria.jpg"#,
+            # width='stretch'
         )  
