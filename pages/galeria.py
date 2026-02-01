@@ -25,20 +25,29 @@ def render():
     st.divider()
 
     # ---------- GALERIA DO CASAL ----------
-    st.subheader("👀 Algumas fotinhas nossas e participações especiais...")
 
-    images = get_gallery_images()
+    st.subheader("👀 Algumas fotinhas nossas e participações especiais...🤍")
 
-    if not images:
-        st.info("📷 Em breve novas fotos...")
-        return
+    # images = get_gallery_images()
 
-    # 🔒 Limite fixo: no máximo 12 imagens
-    gallery_images = images[:12]
+    # if not images:
+    #     st.info("📷 Em breve novas fotos...")
+    #     return
 
-    # ---------- GRID FIXO 4x3 ----------
-    for row in range(0, len(gallery_images), COLS):
-        cols = st.columns(COLS)
-        for col, img_path in zip(cols, gallery_images[row:row + COLS]):
-            with col:
-                st.image(img_path)
+    # # 🔒 Limite fixo: no máximo 12 imagens
+    # gallery_images = images[:12]
+
+    # # ---------- GRID FIXO 4x3 ----------
+    # for row in range(0, len(gallery_images), COLS):
+    #     cols = st.columns(COLS)
+    #     for col, img_path in zip(cols, gallery_images[row:row + COLS]):
+    #         with col:
+    #             st.image(img_path)
+
+    col1, col2, col3 = st.columns([1, 4, 1])
+
+    with col2:
+        st.image(
+            "assets/images/galeria.jpg",
+            width='stretch'
+        )  
