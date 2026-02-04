@@ -16,8 +16,7 @@ def render():
 
     with col2:
         st.image(
-            "assets/images/igreja_vertical.jpg",
-            width='stretch'
+            "assets/images/igreja_vertical.jpg"
         )  
 
     st.divider()
