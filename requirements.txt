@@ -6,3 +6,4 @@ python-dotenv
 streamlit_autorefresh
 python-dotenv
 psycopg2
+db

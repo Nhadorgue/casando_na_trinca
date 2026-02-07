@@ -11,7 +11,7 @@ def listar_presentes():
         else:
             try:
                 valor = float(p["valor_estimado"])
-                p["valor_exibicao"] = f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                p["valor_exibicao"] = f"~R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
             except (TypeError, ValueError):
                 p["valor_exibicao"] = "—"
 
