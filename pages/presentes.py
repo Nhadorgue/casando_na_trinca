@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from utils.background import apply_virgem_maria_background
 from services.presentes_service import listar_presentes
@@ -36,18 +37,19 @@ def confirmar_definitivo():
                     confirmar_presente_service()
                     st.session_state["presente_confirmado"] = True
 
+
         # =========================
         # FASE 2 — AGRADECIMENTO
         # =========================
         if st.session_state.get("presente_confirmado"):
             st.success("🎉 Muito obrigado pelo carinho e sua generosidade!")
-            st.info("Se quiser pode deixar um recado para nós... 🤍")
-            st.info("Esse ficará visível em todas as páginas após o menu na parte de cima 😉")
+            st.info("Se quiser, pode deixar um recado para nós 🤍")
+            st.info("Esse recado ficará visível em todas as páginas após o menu 😉")
 
-            if st.button("💌 Ir para Recados"): ######  AINDA ESTA COM BUG
+            if st.button("💌 Ir para Recados"):
+                limpar_estado_presente()
                 st.session_state["pagina"] = "Recados"
-                # limpar_estado_presente()
-                # st.rerun()
+
 
 
 # =========================
@@ -57,7 +59,13 @@ def painel_confirmacao_presente(presente):
     with st.container(border=True):
         st.markdown("## 🎁 Confirmar Presente")
 
-        st.image("assets/images/presentes/utensilios.jpg")
+        imagem_path = f"assets/images/presentes/{presente['id']}.jpg"
+
+        if os.path.exists(imagem_path):
+            st.image(imagem_path)
+        else:
+            st.image("assets/images/presentes/utensilios.jpg")
+
         st.markdown(f"### {presente['produto']}")
         st.markdown(f"**Valor aproximado:** {presente['valor_exibicao']}")
 
@@ -92,8 +100,11 @@ def render():
     # Estados base
     st.session_state.setdefault("abrir_modal_presente", False)
     st.session_state.setdefault("processando_confirmacao", False)
+    st.session_state.setdefault("categoria_selecionada", "Todas")
+
 
     st.markdown(apply_virgem_maria_background(), unsafe_allow_html=True)
+
     st.title("🎁 Lista de Presentes")
 
     st.markdown("""
@@ -113,14 +124,52 @@ def render():
         Que Deus abençoe cada gesto de carinho e sua generosidade 🙏
     """)
 
-    st.divider()
-
+    # =========================
+    # BUSCA DOS PRESENTES
+    # =========================
     presentes = listar_presentes()
 
     if not presentes:
         st.info("Todos os presentes já foram assumidos 🤍")
         return
 
+    # =========================
+    # CATEGORIAS
+    # =========================
+    categorias = sorted(
+        list({p["categoria"] for p in presentes if p.get("categoria")})
+    )
+    categorias.insert(0, "Todas")
+
+    st.markdown("### 🗂️ Categorias")
+
+    cols_cat = st.columns(len(categorias))
+
+    for idx, categoria in enumerate(categorias):
+        with cols_cat[idx]:
+            if st.button(
+                categoria,
+                key=f"cat_{categoria}",
+                type="primary" if st.session_state["categoria_selecionada"] == categoria else "secondary"
+            ):
+                st.session_state["categoria_selecionada"] = categoria
+
+    st.divider()
+
+    # =========================
+    # FILTRO POR CATEGORIA
+    # =========================
+    categoria_ativa = st.session_state["categoria_selecionada"]
+
+    if categoria_ativa != "Todas":
+        presentes = [
+            p for p in presentes
+            if p.get("categoria") == categoria_ativa
+        ]
+
+    # =========================
+    # GRID DE PRESENTES
+    # =========================
     cols = st.columns(4)
 
     for idx, presente in enumerate(presentes):

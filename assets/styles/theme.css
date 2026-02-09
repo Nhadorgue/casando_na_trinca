@@ -41,3 +41,15 @@
 button[data-active="true"] {
     border-bottom: 2px solid #9fa8da;
 }
+
+
+
+div[data-baseweb="input"] > div {
+    border-radius: 10px;
+    border: 2px solid #91a8d0;
+}
+
+div[data-baseweb="input"] > div:focus-within {
+    border-color: #6b8fcf;
+    box-shadow: 0 0 0 2px rgba(145,168,208,0.3);
+}
