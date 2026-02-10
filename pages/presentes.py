@@ -1,4 +1,5 @@
 import os
+import time
 import streamlit as st
 from collections import Counter
 from utils.background import apply_virgem_maria_background
@@ -106,6 +107,7 @@ def painel_confirmacao_presente(presente):
 # RENDER PRINCIPAL
 # =========================
 def render():
+    time.sleep(1)
     # Estados base
     st.session_state.setdefault("abrir_modal_presente", False)
     st.session_state.setdefault("processando_confirmacao", False)
