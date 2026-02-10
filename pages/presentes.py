@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+from collections import Counter
 from utils.background import apply_virgem_maria_background
 from services.presentes_service import listar_presentes
 from services.assumidos_service import confirmar_presente_service
@@ -52,6 +53,7 @@ def confirmar_definitivo():
 
 
 
+
 # =========================
 # PAINEL DE CONFIRMAÇÃO
 # =========================
@@ -63,6 +65,9 @@ def painel_confirmacao_presente(presente):
 
         if os.path.exists(imagem_path):
             st.image(imagem_path)
+            if presente["is_pix"]:
+                st.info("💠 Use o QR Code acima para realizar o Pix")
+                
         else:
             st.image("assets/images/presentes/utensilios.jpg")
 
@@ -82,7 +87,10 @@ def painel_confirmacao_presente(presente):
                 st.rerun()
 
         with col2:
-            if st.button("Confirmar Presente", key=f"confirmar_{presente['id']}"):
+            texto_botao = "Confirmar Pix 💠" if presente["is_pix"] else "Confirmar Presente"
+
+            if st.button(texto_botao, key=f"confirmar_{presente['id']}"):
+
                 if not nome.strip():
                     st.warning("Informe seu nome 🙏")
                 else:
@@ -91,6 +99,7 @@ def painel_confirmacao_presente(presente):
 
         if st.session_state.get("confirmar_definitivo"):
             confirmar_definitivo()
+
 
 
 # =========================
@@ -102,6 +111,18 @@ def render():
     st.session_state.setdefault("processando_confirmacao", False)
     st.session_state.setdefault("categoria_selecionada", "Todas")
 
+    st.markdown("""
+        <style>
+        @media (max-width: 768px) {
+            div[data-testid="column"] {
+                width: 50% !important;
+                flex: 0 0 50% !important;
+            }
+        }
+        </style>
+    """, unsafe_allow_html=True
+    )
+
 
     st.markdown(apply_virgem_maria_background(), unsafe_allow_html=True)
 
@@ -111,7 +132,7 @@ def render():
         Com muito carinho, preparamos esta lista para facilitar a vida de quem deseja nos presentear 🤍 
         
         Os valores colocados na lista **são apenas uma média** dos presentes que pesquisamos, não necessariamente 
-                significa que os presentes devem ser nesses mesmos valores 
+                significa que os presentes devem ser nesses mesmos valores.
                 
         Existe também a opção de nos presentear com **Pix** para aqueles casos em que a pessoa não encontre o 
                 presente ou prefira esse modo de presentear...também será muito bem recebido 😅 
@@ -129,6 +150,10 @@ def render():
     # =========================
     presentes = listar_presentes()
 
+    contador_categorias = Counter(
+        p["categoria"] for p in presentes if p.get("categoria")
+    )
+
     if not presentes:
         st.info("Todos os presentes já foram assumidos 🤍")
         return
@@ -136,10 +161,7 @@ def render():
     # =========================
     # CATEGORIAS
     # =========================
-    categorias = sorted(
-        list({p["categoria"] for p in presentes if p.get("categoria")})
-    )
-    categorias.insert(0, "Todas")
+    categorias = ["Todas"] + sorted(contador_categorias.keys())
 
     st.markdown("### 🗂️ Categorias")
 
@@ -147,11 +169,18 @@ def render():
 
     for idx, categoria in enumerate(categorias):
         with cols_cat[idx]:
+            label = (
+                f"{categoria} ({contador_categorias[categoria]})"
+                if categoria != "Todas"
+                else "Todas"
+            )
+
             if st.button(
-                categoria,
+                label,
                 key=f"cat_{categoria}",
                 type="primary" if st.session_state["categoria_selecionada"] == categoria else "secondary"
             ):
+
                 st.session_state["categoria_selecionada"] = categoria
 
     st.divider()
@@ -170,7 +199,10 @@ def render():
     # =========================
     # GRID DE PRESENTES
     # =========================
-    cols = st.columns(4)
+    is_mobile = st.session_state.get("is_mobile", False)
+
+    cols = st.columns(2 if st.session_state.get("mobile", False) else 4)
+
 
     for idx, presente in enumerate(presentes):
         with cols[idx % 4]:

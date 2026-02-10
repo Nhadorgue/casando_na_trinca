@@ -13,7 +13,8 @@ def confirmar_presente_service():
         nome_convidado=nome.upper()
         )
 
-    marcar_como_assumido(presente["id"])
+    if not presente.get("is_pix"):
+        marcar_como_assumido(presente["id"])
 
     # limpar_estado_presente()
     # st.rerun()
