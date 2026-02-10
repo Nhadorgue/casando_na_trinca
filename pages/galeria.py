@@ -16,7 +16,7 @@ def render():
 
     with col2:
         st.image(
-            "assets/images/igreja_vertical.jpg"
+            "assets/images/igreja_horizontal.jpg"
         )  
 
     st.divider()
