@@ -134,9 +134,10 @@ def render():
         Com muito carinho, preparamos esta lista para facilitar a vida de quem deseja nos presentear 🤍 
         
         Os valores colocados na lista **são apenas uma média** dos presentes que pesquisamos, não necessariamente 
-                significa que os presentes devem ser nesses mesmos valores.
+        significa que os presentes devem ser nesses mesmos valores. Inclusive, buscamos tomar cuidado para não abusar 
+                da boa vontade daqueles que desejam nos presentear.
                 
-        Existe também a opção de nos presentear com **Pix** para aqueles casos em que a pessoa não encontre o 
+        Existe também a opção de nos presentear com **Pix**, no final da página, para aqueles casos em que a pessoa não encontre o 
                 presente ou prefira esse modo de presentear...também será muito bem recebido 😅 
                 
         Caso surja qualquer dúvida — sobre os presentes, valores ou formas de contribuição — fiquem totalmente 
