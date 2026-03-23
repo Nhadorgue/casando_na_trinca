@@ -1,13 +1,15 @@
-from database.connection import get_connection
+from datetime import datetime
+from utils.google_sheets_presentes import get_assumidos_sheet
 
 def inserir_assumido(presente_id, nome_convidado):
-    query = """
-        INSERT INTO presentes_assumidos
-        (presente_id, nome_convidado)
-        VALUES (%s, %s)
-    """
+    sheet = get_assumidos_sheet()
+    records = sheet.get_all_records()
 
-    with get_connection() as conn:
-        with conn.cursor() as cursor:
-            cursor.execute(query, (presente_id, nome_convidado))
-            conn.commit()
+    novo_id = len(records) + 1
+
+    sheet.append_row([
+        novo_id,
+        presente_id,
+        nome_convidado,
+        datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    ])

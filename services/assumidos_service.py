@@ -8,6 +8,10 @@ def confirmar_presente_service():
     presente = st.session_state["presente_selecionado"]
     nome = st.session_state["nome_convidado"]
 
+
+    # 🔒 EVITA CLIQUE DUPLO
+    st.session_state["processando_confirmacao"] = True
+
     inserir_assumido(
         presente_id=presente["id"],
         nome_convidado=nome.upper()

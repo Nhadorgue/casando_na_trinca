@@ -1,30 +1,22 @@
-from database.connection import get_connection
+from utils.google_sheets_presentes import get_presentes_sheet
 
 def buscar_presentes_disponiveis():
-    query = """
-        SELECT
-            id,
-            produto,
-            categoria,
-            valor_estimado,
-            imagem,
-            link_preco,
-            exemplos
-        FROM presentes
-        WHERE COALESCE(assumido, false) = false
-        ORDER BY id
-    """
-    
-    with get_connection() as conn:
-        with conn.cursor() as cursor:
-            cursor.execute(query)
-            return cursor.fetchall()
+    sheet = get_presentes_sheet()
+    records = sheet.get_all_records()
+
+    presentes = [
+        p for p in records
+        if str(p["assumido"]).upper() != "TRUE"
+    ]
+
+    return presentes
 
 
 def marcar_como_assumido(presente_id):
-    query = "UPDATE presentes SET assumido = true WHERE id = %s"
+    sheet = get_presentes_sheet()
+    records = sheet.get_all_records()
 
-    with get_connection() as conn:
-        with conn.cursor() as cursor:
-            cursor.execute(query, (presente_id,))
-            conn.commit()
+    for idx, row in enumerate(records, start=2):
+        if row["id"] == presente_id:
+            sheet.update_cell(idx, 5, "TRUE")  # coluna assumido
+            break
