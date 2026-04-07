@@ -111,7 +111,7 @@ def render():
 
     mapa_html = """
     <iframe 
-        src="https://www.google.com/maps?q=Paróquia+Nossa+Senhora+das+Graças+Carapicuíba+SP&output=embed"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.135185317928!2d-46.84380660000001!3d-23.5635878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cf00155cba7f8d%3A0xbc298f4f0dff0a46!2sR.%20Nova%20Independ%C3%AAncia%2C%209%20-%20Jardim%20Ana%20Estela%2C%20Carapicu%C3%ADba%20-%20SP%2C%2006364-570!5e0!3m2!1spt-BR!2sbr!4v1775562186173!5m2!1spt-BR!2sbr"
         width="100%" 
         height="600" 
         style="border:0; border-radius: 12px;"
