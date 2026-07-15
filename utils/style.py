@@ -1,20 +1,18 @@
-import streamlit as st
 from pathlib import Path
 
+import streamlit as st
+
+CSS_PATH = Path(__file__).parent.parent / "assets" / "styles" / "theme.css"
+
+
 def load_css():
-    if st.session_state.get("css_loaded"):
-        return
-    # st.session_state["css_loaded"] = True
+    """Injeta o CSS global. Precisa rodar em todo rerun (o Streamlit
+    redesenha a página inteira a cada interação).
 
-    css_path = (
-        Path(__file__).parent.parent / "assets" / "styles" / "theme.css"
-    )
-
-    if css_path.exists():
-        st.markdown(
-            f"<style>{css_path.read_text(encoding='utf-8')}</style>",
-            unsafe_allow_html=True
-        )
-        # st.session_state["css_loaded"] = True
-    else:
-        st.error(f"CSS não encontrado em: {css_path}")
+    Sem cache de propósito: assim, editar o theme.css reflete no próximo
+    rerun, sem precisar reiniciar o servidor.
+    """
+    try:
+        st.markdown(f"<style>{CSS_PATH.read_text(encoding='utf-8')}</style>", unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.error(f"CSS não encontrado em: {CSS_PATH}")

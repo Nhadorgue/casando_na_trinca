@@ -1,21 +1,20 @@
 import base64
 from pathlib import Path
 
+import streamlit as st
 
+
+@st.cache_data(show_spinner=False)
 def get_base64_image(path: str) -> str:
-    image_path = Path(path)
-    return base64.b64encode(image_path.read_bytes()).decode()
+    return base64.b64encode(Path(path).read_bytes()).decode()
 
 
-def apply_virgem_maria_background():
+@st.cache_data(show_spinner=False)
+def apply_virgem_maria_background() -> str:
     img_base64 = get_base64_image("assets/images/virgem_maria.png")
 
     return f"""
     <style>
-
-    :root {{
-        --serenity-blue: #A7C7E7;
-    }}
 
     /* ===============================
        BACKGROUND
@@ -38,7 +37,7 @@ def apply_virgem_maria_background():
     }}
 
     /* ===============================
-       GALERIA (st.image)
+       IMAGENS (st.image)
     =============================== */
     div[data-testid="stImage"] {{
         border-radius: 18px;
@@ -50,16 +49,6 @@ def apply_virgem_maria_background():
 
     div[data-testid="stImage"]:hover {{
         transform: scale(1.02);
-    }}
-
-    /* ===============================
-       MAPA
-    =============================== */
-    .mapa-container {{
-        border-radius: 18px;
-        border: 2px solid var(--serenity-blue);
-        box-shadow: 0 10px 28px rgba(167,199,231,0.45);
-        overflow: hidden;
     }}
 
     @media (max-width: 768px) {{

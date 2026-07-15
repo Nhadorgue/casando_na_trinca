@@ -1,6 +1,7 @@
 import streamlit as st
+
 from utils.background import apply_virgem_maria_background
-from utils.gallery import get_gallery_images
+
 
 def render():
     st.markdown(apply_virgem_maria_background(), unsafe_allow_html=True)
@@ -11,24 +12,17 @@ def render():
     # ---------- IGREJA ----------
     st.subheader("📸 O lugar onde tudo acontecerá")
 
-    col1, col2, col3 = st.columns([0.5, 4, 0.5])
+    _, col_igreja, _ = st.columns([0.5, 4, 0.5])
 
-
-    with col2:
-        st.image(
-            "assets/images/igreja_horizontal.jpg"
-        )  
+    with col_igreja:
+        st.image("assets/images/igreja_horizontal.jpg")
 
     st.divider()
 
     # ---------- GALERIA DO CASAL ----------
-
     st.subheader("👀 Algumas fotinhas nossas e participações especiais...🤍")
 
-    col1, col2, col3 = st.columns([1, 4, 1])
+    _, col_galeria, _ = st.columns([1, 4, 1])
 
-    with col2:
-        st.image(
-            "assets/images/galeria.jpg"#,
-            # width='stretch'
-        )  
+    with col_galeria:
+        st.image("assets/images/galeria.jpg")

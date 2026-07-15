@@ -36,9 +36,9 @@ Inspirado na **Sagrada Família**, na devoção à **Virgem Maria**, **São Jos�
 O site será dividido em páginas acessadas por um **menu horizontal fixo no topo**, contendo:
 
 ### 💒 Casamento
-- Data: **123456789**
-- Local: **localização**  
-  _rua_
+- Data: **05 de dezembro de 2026, às 14h**
+- Local: **Paróquia Nossa Senhora das Graças**  
+  _Carapicuíba – SP_
 - Contador regressivo em tempo real (dias, horas, minutos e segundos)
 - Galeria de fotos da igreja em formato de slides
 - Endereço e integração com mapa (estilo Google Maps)
@@ -88,26 +88,23 @@ Página principal do projeto.
 ---
 
 ## 📂 Organização do Projeto (visão geral)
+```
 casando-na-trinca/
 │
-├── app.py
-├── pages/
-│   ├── casamento.py
-│   ├── galeria.py
-│   ├── sobre_nos.py
-│   ├── recados.py
-│   └── presentes.py
-│
+├── app.py                  # entry point: menu + roteamento manual das views
+├── views/                  # páginas do site (casamento, galeria, sobre_nos, recados, presentes)
+├── components/             # menu, barra de recados, footer
+├── services/               # regras de negócio dos presentes
+├── repositories/           # leitura/escrita nas planilhas Google
+├── utils/                  # autenticação Google, sessão, estilos, datas
 ├── assets/
-│   ├── imagens/
-│   └── estilos/
-│
-├── services/
-│   └── google_sheets.py
+│   ├── images/
+│   └── styles/theme.css    # tokens e CSS global do sistema de design
 │
 ├── .gitignore
-├── requirements.txt
+├── requirements.txt        # versões fixadas (testadas localmente)
 └── README.md
+```
 
 ---
 

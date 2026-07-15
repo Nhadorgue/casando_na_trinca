@@ -1,19 +1,29 @@
-/* Wrapper geral do menu */
-.menu-wrapper {
-    width: 100%;
-    margin-bottom: 1.5rem;
+/* ===============================================
+   TOKENS DO SISTEMA DE DESIGN
+   Única fonte de verdade para cores e superfícies.
+   =============================================== */
+:root {
+    --serenity-blue: #A7C7E7;        /* azul serenity claro (bordas, molduras) */
+    --serenity-blue-forte: #91a8d0;  /* azul serenity forte (destaques, sublinhados) */
+    --serenity-blue-escuro: #6b8fcf; /* foco de inputs */
+    --texto-principal: #2c2c2c;
+    --texto-suave: #555555;
+    --superficie-card: #f8f6f4;
+    --sombra-serenity: 0 10px 28px rgba(167, 199, 231, 0.45);
 }
 
-/* Logo centralizado */
+/* ===============================================
+   MENU DE NAVEGAÇÃO
+   (container com key="menu_navegacao" no menu.py)
+   =============================================== */
 .logo-container {
     display: flex;
-    justify-content: center; /* Centraliza na horizontal */
-    width: 100%            /* Opcional: faz a div ocupar toda a largura */
-  
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 0.5rem;
 }
 
-/* Botões do menu */
-.menu-wrapper button {
+.st-key-menu_navegacao button {
     width: 100%;
     background: transparent !important;
     border: none !important;
@@ -21,35 +31,78 @@
     padding: 0.75rem 0;
     font-size: 16px;
     font-weight: 500;
-    color: #2c2c2c;
+    color: var(--texto-principal);
+    transition: border-color 0.25s ease, color 0.25s ease;
 }
 
-/* Hover */
-.menu-wrapper button:hover {
-    color: #2c2c2c;
-    border-bottom: 2px solid #9fa8da;
+.st-key-menu_navegacao button:hover {
+    color: var(--texto-principal);
+    border-bottom: 2px solid var(--serenity-blue-forte) !important;
 }
 
-/* Underline ativo */
-.menu-underline {
-    height: 3px;
-    width: 100%;
-    background-color: #91a8d0; /* Azul Serenity */
-    margin-top: 4px;
+/* ===============================================
+   BARRA DE RECADOS (letreiro rolante)
+   =============================================== */
+.recados-marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 4px 0;
 }
 
-button[data-active="true"] {
-    border-bottom: 2px solid #9fa8da;
+.recados-marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    animation-name: recados-scroll;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 
+@keyframes recados-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-100%); }
+}
 
+/* ===============================================
+   CARDS
+   =============================================== */
+.recado-card {
+    background-color: var(--superficie-card);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
 
+.presente-card {
+    padding: 12px;
+    border-radius: 14px;
+    border: 1px solid #e5e5e5;
+    background-color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 12px;
+}
+
+.presente-card span {
+    color: var(--texto-suave);
+}
+
+/* ===============================================
+   FOOTER
+   =============================================== */
+.footer-casamento {
+    text-align: center;
+    color: gray;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* ===============================================
+   INPUTS
+   =============================================== */
 div[data-baseweb="input"] > div {
     border-radius: 10px;
-    border: 2px solid #91a8d0;
+    border: 2px solid var(--serenity-blue-forte);
 }
 
 div[data-baseweb="input"] > div:focus-within {
-    border-color: #6b8fcf;
-    box-shadow: 0 0 0 2px rgba(145,168,208,0.3);
+    border-color: var(--serenity-blue-escuro);
+    box-shadow: 0 0 0 2px rgba(145, 168, 208, 0.3);
 }

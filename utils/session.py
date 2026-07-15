@@ -1,24 +1,20 @@
 import streamlit as st
 
+# Chaves da máquina de estados do fluxo de presente (modal de confirmação)
+CHAVES_CONFIRMACAO = [
+    "confirmar_definitivo",
+    "presente_confirmado",
+    "nome_convidado",
+]
+
+
 def limpar_estado_presente():
-    for key in [
-        "processando_confirmacao",
-        "abrir_modal_presente",
-        "presente_selecionado",
-        "confirmar_definitivo",
-        "nome_convidado",
-        "presente_confirmado",
-    ]:
-        if key in st.session_state:
-            del st.session_state[key]
+    """Encerra o fluxo de presente por completo (fecha o modal)."""
+    for chave in CHAVES_CONFIRMACAO + ["presente_selecionado"]:
+        st.session_state.pop(chave, None)
 
 
 def reset_confirmacao():
-    for key in [
-        "confirmar_definitivo",
-        "processando_confirmacao",
-        "presente_confirmado",
-        "nome_convidado",
-    ]:
-        if key in st.session_state:
-            del st.session_state[key]
+    """Zera as fases da confirmação ao abrir o modal de um novo presente."""
+    for chave in CHAVES_CONFIRMACAO:
+        st.session_state.pop(chave, None)

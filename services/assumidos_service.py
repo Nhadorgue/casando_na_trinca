@@ -1,24 +1,17 @@
 import streamlit as st
-from datetime import datetime
-from repositories.presentes_repository import marcar_como_assumido
-from repositories.assumidos_repository import inserir_assumido
-from utils.session import limpar_estado_presente
 
-def confirmar_presente_service():
+from repositories.assumidos_repository import inserir_assumido
+from repositories.presentes_repository import marcar_como_assumido
+
+
+def confirmar_presente_service() -> None:
     presente = st.session_state["presente_selecionado"]
     nome = st.session_state["nome_convidado"]
 
-
-    # 🔒 EVITA CLIQUE DUPLO
-    st.session_state["processando_confirmacao"] = True
-
     inserir_assumido(
         presente_id=presente["id"],
-        nome_convidado=nome.upper()
-        )
+        nome_convidado=nome.upper(),
+    )
 
     if not presente.get("is_pix"):
         marcar_como_assumido(presente["id"])
-
-    # limpar_estado_presente()
-    # st.rerun()
