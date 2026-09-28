@@ -85,12 +85,19 @@ def bloco_texto_imagem(texto, imagem, invertido=False):
     else:
         col_txt, col_img = col1, col2
 
+    # Junta o texto em uma linha só: linhas em branco ou com indentação
+    # própria quebram o bloco HTML do markdown e fazem os </div> do
+    # template aparecerem na tela como código.
+    texto_html = " ".join(
+        linha.strip() for linha in texto.strip().splitlines() if linha.strip()
+    )
+
     with col_txt:
         st.markdown(
             f"""
             <div class="texto-wrapper">
                 <div class="texto-historia">
-                    {texto}
+                    {texto_html}
                 </div>
             </div>
             """,

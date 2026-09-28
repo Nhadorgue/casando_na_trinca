@@ -10,6 +10,7 @@
     --texto-suave: #555555;
     --superficie-card: #f8f6f4;
     --sombra-serenity: 0 10px 28px rgba(167, 199, 231, 0.45);
+    --anel-foco: 0 0 0 2px rgba(145, 168, 208, 0.3); /* halo de foco dos inputs (azul forte a 30%) */
 }
 
 /* ===============================================
@@ -95,14 +96,44 @@
 }
 
 /* ===============================================
-   INPUTS
+   INPUTS (campos de texto)
+   Borda fininha em azul para sinalizar onde o
+   convidado pode escrever. Cobre st.text_input
+   (data-baseweb="input") e st.text_area
+   (data-baseweb="textarea").
    =============================================== */
-div[data-baseweb="input"] > div {
+div[data-baseweb="input"],
+div[data-baseweb="textarea"] {
+    border: 1px solid var(--serenity-blue-forte) !important;
     border-radius: 10px;
-    border: 2px solid var(--serenity-blue-forte);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-div[data-baseweb="input"] > div:focus-within {
-    border-color: var(--serenity-blue-escuro);
-    box-shadow: 0 0 0 2px rgba(145, 168, 208, 0.3);
+div[data-baseweb="input"]:focus-within,
+div[data-baseweb="textarea"]:focus-within {
+    border-color: var(--serenity-blue-escuro) !important;
+    box-shadow: var(--anel-foco);
+}
+
+/* ===============================================
+   PÁGINA DE PRESENTES — layout responsivo
+   (containers com key="filtro_categorias" e
+   key="grid_presentes" em views/presentes.py)
+   No celular o Streamlit empilha as colunas uma
+   por linha (via min-width); aqui forçamos 2 por
+   linha. O desconto de 0.5rem compensa o gap de
+   1rem que o Streamlit põe entre as colunas.
+   =============================================== */
+@media (max-width: 768px) {
+    .st-key-filtro_categorias div[data-testid="stHorizontalBlock"],
+    .st-key-grid_presentes div[data-testid="stHorizontalBlock"] {
+        flex-wrap: wrap;
+    }
+
+    .st-key-filtro_categorias div[data-testid="stColumn"],
+    .st-key-grid_presentes div[data-testid="stColumn"] {
+        width: calc(50% - 0.5rem) !important;
+        min-width: calc(50% - 0.5rem) !important;
+        flex: 0 0 calc(50% - 0.5rem) !important;
+    }
 }

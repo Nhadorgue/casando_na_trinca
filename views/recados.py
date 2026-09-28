@@ -18,8 +18,16 @@ def render():
     st.subheader("Deixe seu recado para nós 🤍")
 
     with st.form("form_recado", clear_on_submit=True):
-        nome = st.text_input("Seu nome", max_chars=60).upper()
-        recado = st.text_area("Seu recado", max_chars=500).upper()
+        nome = st.text_input(
+            "Seu nome",
+            max_chars=60,
+            placeholder="Ex.: Maria e João Souza",
+        ).upper()
+        recado = st.text_area(
+            "Seu recado",
+            max_chars=500,
+            placeholder="Escreva aqui sua mensagem. Ex.: Desejamos toda a felicidade do mundo ao casal! 🤍",
+        ).upper()
         submitted = st.form_submit_button("Enviar recado")
 
         if submitted:

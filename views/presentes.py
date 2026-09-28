@@ -71,7 +71,12 @@ def dialogo_confirmacao():
         return
 
     # ---------- FASE 1 — NOME DO CONVIDADO ----------
-    nome = st.text_input("Seu nome 🤍", max_chars=60, key=f"nome_{presente['id']}")
+    nome = st.text_input(
+        "Seu nome 🤍",
+        max_chars=60,
+        key=f"nome_{presente['id']}",
+        placeholder="Ex.: Maria e João Souza",
+    )
 
     col1, col2 = st.columns(2)
 
@@ -97,22 +102,6 @@ def dialogo_confirmacao():
 # =========================
 def render():
     st.session_state.setdefault("categoria_selecionada", "Todas")
-
-    # No celular, força os cards a ocuparem 2 por linha
-    st.markdown(
-        """
-        <style>
-        @media (max-width: 768px) {
-            div[data-testid="column"],
-            div[data-testid="stColumn"] {
-                width: 50% !important;
-                flex: 0 0 50% !important;
-            }
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
 
     st.markdown(apply_virgem_maria_background(), unsafe_allow_html=True)
 
@@ -166,25 +155,29 @@ def render():
 
     st.markdown("### 🗂️ Categorias")
 
-    cols_cat = st.columns(len(categorias))
+    # O key gera a classe ".st-key-filtro_categorias", usada no theme.css
+    # para reorganizar os botões em 2 colunas no celular
+    with st.container(key="filtro_categorias"):
+        cols_cat = st.columns(len(categorias))
 
-    for col, categoria in zip(cols_cat, categorias):
-        with col:
-            label = (
-                f"{categoria} ({contador_categorias[categoria]})"
-                if categoria != "Todas"
-                else "Todas"
-            )
+        for col, categoria in zip(cols_cat, categorias):
+            with col:
+                label = (
+                    f"{categoria} ({contador_categorias[categoria]})"
+                    if categoria != "Todas"
+                    else "Todas"
+                )
 
-            selecionada = st.session_state["categoria_selecionada"] == categoria
+                selecionada = st.session_state["categoria_selecionada"] == categoria
 
-            if st.button(
-                label,
-                key=f"cat_{categoria}",
-                type="primary" if selecionada else "secondary",
-            ):
-                st.session_state["categoria_selecionada"] = categoria
-                st.rerun()
+                if st.button(
+                    label,
+                    key=f"cat_{categoria}",
+                    type="primary" if selecionada else "secondary",
+                    width="stretch",
+                ):
+                    st.session_state["categoria_selecionada"] = categoria
+                    st.rerun()
 
     st.divider()
 
@@ -202,21 +195,24 @@ def render():
     # =========================
     # GRID DE PRESENTES
     # =========================
-    cols = st.columns(COLUNAS_GRID)
+    # O key gera a classe ".st-key-grid_presentes", usada no theme.css
+    # para manter os cards em 2 colunas no celular
+    with st.container(key="grid_presentes"):
+        cols = st.columns(COLUNAS_GRID)
 
-    for idx, presente in enumerate(presentes):
-        with cols[idx % COLUNAS_GRID]:
-            st.markdown(
-                f"""
-                <div class="presente-card">
-                    <strong>{html.escape(str(presente['produto']))}</strong><br>
-                    <span>{presente['valor_exibicao']}</span>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+        for idx, presente in enumerate(presentes):
+            with cols[idx % COLUNAS_GRID]:
+                st.markdown(
+                    f"""
+                    <div class="presente-card">
+                        <strong>{html.escape(str(presente['produto']))}</strong><br>
+                        <span>{presente['valor_exibicao']}</span>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
 
-            if st.button("Dar 🤍", key=f"btn_{presente['id']}"):
-                reset_confirmacao()
-                st.session_state["presente_selecionado"] = presente
-                st.rerun()
+                if st.button("Dar 🤍", key=f"btn_{presente['id']}"):
+                    reset_confirmacao()
+                    st.session_state["presente_selecionado"] = presente
+                    st.rerun()
